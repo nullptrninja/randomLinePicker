@@ -17,7 +17,7 @@ $fullPath = $(Get-ItemProperty -Path $file).FullName;
 $lines = [System.IO.File]::ReadAllLines($fullPath);
 $actualPick = $pick;
 
-if ($lines.Length -le $pick) {
+if ($lines.Length -lt $pick) {
     write-host "There were less lines in the file than you picked, showing all lines...";
     $actualPick = $lines.Length;
 }
@@ -30,11 +30,10 @@ while ($i -le $actualPick) {
     $pickedName = $lines[$index];
 
     if ($alreadyPicked.Contains($pickedName) -eq $false) {
-        write-host "Picked index: $i -> $pickedName"
+        write-host "Pick #$i -> $pickedName"
 
-        # Supress the return value
+        # Suppress the return value
         $derp = $alreadyPicked.Add($pickedName);
         $i++;
-    }
-    
+    }    
 }
